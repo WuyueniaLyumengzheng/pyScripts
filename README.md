@@ -1,2 +1,6 @@
 # pyScripts
-Some Python scripts for deal with some works
+本工程是本人有些懒惰，所以写一些有助于帮助自己解决一些比较麻烦的工作，一些重复的工作量，或者是在 `Linux` 系统上进行一些重复性文件编辑。
+
+# 内容介绍
+- `scripts/download_from_oss.py` 用来向阿里云的OSS上传、下载、查看文件。可以利用云服务器帮助自己下载一些种子、不易下载的文件，之后用这个脚本放到阿里云上，再用自己电脑从阿里云上下载。
+- `scripts/twitter_image_rename.py` 从某推上保存的图片总要修改拓展名？用这个脚本，然后就直接保存图片，之后调用一次脚本，将指定路径中的图片后缀名全部改正。
