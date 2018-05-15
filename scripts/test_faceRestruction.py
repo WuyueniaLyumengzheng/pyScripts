@@ -14,7 +14,13 @@ import argparse
 FLAGS = None
 
 def faceRec( filename, outputPath ):
-    log = os.popen("cfaceRec -i {0} -s {1}".format(filename, outputPath), 'r', 1)
+    current_dir = os.getcwd()       # 记录当前文件
+    os.chdir("./")
+    command = "cfaceRec -i {0} -s {1}".format(filename, outputPath)
+    print(command)
+    #log = os.popen(command, 'r', 1)
+    os.system(command)
+    os.chdir(current_dir)
 
 def main():
     """ main function
@@ -40,8 +46,8 @@ def main():
     start_time = time.time()
     for image_file in dirs:
         # 遍历文件
-        if os.path.isfile(dirs):
-            faceRec(os.path.join(current_dir, image_file), output_dir)
+        if os.path.isfile(image_file):
+            faceRec(os.path.join(path_dir, image_file), output_dir)
             count_image += 1
     print("Cost time {0} Sec, process {1} images.".format(
         time.time() - start_time, count_image))
