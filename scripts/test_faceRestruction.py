@@ -12,15 +12,17 @@ import operator
 import argparse
 
 FLAGS = None
+cfaceRecPath = "/mnt/e/Qt_projects/linux_FaceReconstruction_Release/bin"
 
 def faceRec( filename, outputPath ):
     current_dir = os.getcwd()       # 记录当前文件
-    os.chdir("./")
-    command = "cfaceRec -i {0} -s {1}".format(filename, outputPath)
+    # os.chdir("/mnt/e/Qt_projects/linux_FaceReconstruction_Release/bin")
+    cfaceRec = os.path.join(cfaceRecPath, "cfaceRec")
+    command = "{0} -i {1} -s {2}".format(cfaceRec, filename, outputPath)
     print(command)
     #log = os.popen(command, 'r', 1)
     os.system(command)
-    os.chdir(current_dir)
+    # os.chdir(current_dir)
 
 def main():
     """ main function
@@ -32,21 +34,24 @@ def main():
         return
     if not os.path.exists(FLAGS.outputPath):
         os.mkdir(FLAGS.outputPath)
-    os.chdir(FLAGS.outputPath)
-    output_dir = os.getcwd()         # 记录当前文件夹
-    os.chdir(current_dir)
-    os.chdir(FLAGS.path)             # 切换到输入文件夹
-    path_dir=os.getcwd()
+    # os.chdir(FLAGS.outputPath)
+    # output_dir = os.getcwd()         # 记录当前文件夹
+    # os.chdir(current_dir)
+    # os.chdir(FLAGS.path)             # 切换到输入文件夹
+    # path_dir=os.getcwd()
+    output_dir = os.path.abspath(FLAGS.outputPath)
+    path_dir = os.path.abspath(FLAGS.path)
 
     print("path:{0}, outpath:{1}".format(path_dir, output_dir))
 
-    dirs = os.listdir('./')         # 先建立队列，防止保存路径与图片路径是统一路径
+    dirs = os.listdir(path_dir)         # 先建立队列，防止保存路径与图片路径是统一路径
+    #os.chdir(current_dir)
 
     count_image = 0
     start_time = time.time()
     for image_file in dirs:
         # 遍历文件
-        if os.path.isfile(image_file):
+        if os.path.isfile(os.path.join(path_dir, image_file)):
             faceRec(os.path.join(path_dir, image_file), output_dir)
             count_image += 1
     print("Cost time {0} Sec, process {1} images.".format(
