@@ -16,13 +16,13 @@ cfaceRecPath = "/mnt/e/Qt_projects/linux_FaceReconstruction_Release/bin"
 
 def faceRec( filename, outputPath ):
     current_dir = os.getcwd()       # 记录当前文件
-    # os.chdir("/mnt/e/Qt_projects/linux_FaceReconstruction_Release/bin")
+    os.chdir(cfaceRecPath)
     cfaceRec = os.path.join(cfaceRecPath, "cfaceRec")
     command = "{0} -i {1} -s {2}".format(cfaceRec, filename, outputPath)
     print(command)
     #log = os.popen(command, 'r', 1)
     os.system(command)
-    # os.chdir(current_dir)
+    os.chdir(current_dir)
 
 def main():
     """ main function
