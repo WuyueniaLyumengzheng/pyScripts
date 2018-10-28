@@ -1,11 +1,14 @@
 #-*- coding: utf-8 -*-
 """
 Author: Chaoqun
-Time: 2018-05-15
+Time: 2018-10-28
 
 处理思路：
     打开指定路径下的所有的单次病患扫描的csv结果，计算出该次扫描的平均血流情况，
     将数值储存在新的统计CSV文件中。
+
+Example usage:
+    python3 scripts/deal_with_csv_data.py -p /mnt/f/test/right -s right.csv
 
 """
 
@@ -46,6 +49,7 @@ def main():
     for tmp_csv_path in csv_files:
         tmp_return_value = calculate_csv_average_value(tmp_csv_path)
         values_record.append(tmp_return_value)
+    save_csv_result( save_flie_path, values_record )
 
 def calculate_csv_average_value( csv_filepath ):
     """
@@ -85,11 +89,22 @@ def calculate_csv_average_value( csv_filepath ):
         print(value)
         return value
 
-def save_csv_result( csv_save_path ):
+def save_csv_result( csv_save_path, values ):
     """
-    To be finished.
+    Param:
+        csv_save_path: string to the path to save the result file.
     """
-    pass
+    with open(csv_save_path,"w") as csv_save_file:
+        headers = ["FileName","eyebrow-left","eyebrow-right",
+        "eye-left","eye-right","face-left","face-right",
+        "lip-above-left","lip-above-right",
+        "mouth-corner-left","mouth-corner-right",
+        "lip-below-left","lip-below-right","nose-left","nose-right"]
+
+        csv_save_writer = csv.writer( csv_save_file )
+        csv_save_writer.writerow(headers)
+        for row in values:
+            csv_save_writer.writerow(row)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
